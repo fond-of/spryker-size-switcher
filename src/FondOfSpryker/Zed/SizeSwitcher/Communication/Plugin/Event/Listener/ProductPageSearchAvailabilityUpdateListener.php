@@ -56,6 +56,6 @@ class ProductPageSearchAvailabilityUpdateListener extends AbstractProductPageSea
 
         $this->getFactory()
             ->getProductPageSearchFacade()
-            ->refresh($productAbstractIds, []);
+            ->publish($productAbstractIds);
     }
 }

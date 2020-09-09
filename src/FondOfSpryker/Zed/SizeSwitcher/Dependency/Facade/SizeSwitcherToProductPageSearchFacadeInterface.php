@@ -6,6 +6,11 @@ interface SizeSwitcherToProductPageSearchFacadeInterface
 {
     /**
      * @param int[] $productAbstractIds
+     */
+    public function publish(array $productAbstractIds): void;
+
+    /**
+     * @param int[] $productAbstractIds
      * @param string[] $pageDataExpanderPluginNames
      *
      * @return void

@@ -18,6 +18,16 @@ class SizeSwitcherToProductPageSearchFacadeBridge implements SizeSwitcherToProdu
 
     /**
      * @param int[] $productAbstractIds
+     *
+     * @return void
+     */
+    public function publish(array $productAbstractIds): void
+    {
+        $this->productPageSearchFacade->publish($productAbstractIds);
+    }
+
+    /**
+     * @param int[] $productAbstractIds
      * @param string[] $pageDataExpanderPluginNames
      *
      * @return void
