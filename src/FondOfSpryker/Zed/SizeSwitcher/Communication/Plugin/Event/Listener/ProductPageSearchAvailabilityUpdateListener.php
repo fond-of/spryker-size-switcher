@@ -26,7 +26,7 @@ class ProductPageSearchAvailabilityUpdateListener extends AbstractProductPageSea
      */
     public function handleBulk(array $eventTransfers, $eventName): void
     {
-        $this->preventTransaction();
+        //$this->preventTransaction();
 
         $availabiltyIds = $this->getFactory()
             ->getEventBehaviorFacade()
