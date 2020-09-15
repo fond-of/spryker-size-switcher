@@ -17,6 +17,9 @@ class ProductPageSearchAvailabilitySubscriberTest extends Unit
      */
     protected $eventCollectionMock;
 
+    /**
+     * @return void
+     */
     protected function _before()
     {
         parent::_before();
@@ -28,6 +31,9 @@ class ProductPageSearchAvailabilitySubscriberTest extends Unit
         $this->subscriber = new ProductPageSearchAvailabilitySubscriber();
     }
 
+    /**
+     * @return void
+     */
     public function testGetSubscribedEvents()
     {
         $this->eventCollectionMock->expects($this->once())

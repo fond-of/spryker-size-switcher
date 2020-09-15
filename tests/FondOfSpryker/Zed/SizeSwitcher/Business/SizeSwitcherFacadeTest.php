@@ -3,9 +3,9 @@
 namespace FondOfSpryker\Zed\SizeSwitcher\Business;
 
 use Codeception\Test\Unit;
-use FondOfSpryker\Zed\SizeSwitcher\Persistence\SizeSwitcherRepository;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToEventBehaviorFacadeBridge;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToProductPageSearchFacadeBridge;
+use FondOfSpryker\Zed\SizeSwitcher\Persistence\SizeSwitcherRepository;
 
 class SizeSwitcherFacadeTest extends Unit
 {
@@ -34,6 +34,9 @@ class SizeSwitcherFacadeTest extends Unit
      */
     protected $productPageSearchFacadeBridgeMock;
 
+    /**
+     * @return void
+     */
     protected function _before()
     {
         parent::_before();
@@ -59,6 +62,9 @@ class SizeSwitcherFacadeTest extends Unit
         $this->facade->setRepository($this->repositoryMock);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $this->factoryMock->expects($this->once())
