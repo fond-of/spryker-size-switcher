@@ -2,28 +2,30 @@
 
 namespace FondOfSpryker\Zed\SizeSwitcher\Persistence;
 
+use FondOfSpryker\Zed\SizeSwitcher\SizeSwitcherDependencyProvider;
 use Orm\Zed\Availability\Persistence\SpyAvailabilityAbstractQuery;
 use Orm\Zed\Product\Persistence\SpyProductAbstractQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
  * @method \FondOfSpryker\Zed\SizeSwitcher\Persistence\SizeSwitcherQueryContainerInterface getQueryContainer()
+ * @method \FondOfSpryker\Zed\SizeSwitcher\Persistence\SizeSwitcherRepositoryInterface getRepository()
  */
 class SizeSwitcherPersistenceFactory extends AbstractPersistenceFactory
 {
     /**
      * @return \Orm\Zed\Availability\Persistence\SpyAvailabilityAbstractQuery
      */
-    public function createSpyAvailabilityAbstractQuery(): SpyAvailabilityAbstractQuery
+    public function getAvailabilityAbstractQuery(): SpyAvailabilityAbstractQuery
     {
-        return SpyAvailabilityAbstractQuery::create();
+        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::AVAILABILITY_ABSTRACT_QUERY);
     }
 
     /**
      * @return \Orm\Zed\Product\Persistence\SpyProductAbstractQuery
      */
-    public function createSpyProductAbstractQuery()
+    public function getProductAbstractQuery(): SpyProductAbstractQuery
     {
-        return SpyProductAbstractQuery::create();
+        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::PRODUCT_ABSTRACT_QUERY);
     }
 }
