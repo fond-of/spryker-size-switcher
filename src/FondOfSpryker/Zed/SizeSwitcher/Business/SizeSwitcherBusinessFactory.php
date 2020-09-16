@@ -1,16 +1,16 @@
 <?php
 
-namespace FondOfSpryker\Zed\SizeSwitcher\Communication;
+namespace FondOfSpryker\Zed\SizeSwitcher\Business;
 
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToEventBehaviorFacadeInterface;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToProductPageSearchFacadeInterface;
 use FondOfSpryker\Zed\SizeSwitcher\SizeSwitcherDependencyProvider;
-use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
+use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
- * @method \FondOfSpryker\Zed\SizeSwitcher\Persistence\SizeSwitcherQueryContainerInterface getQueryContainer()
+ * @method \FondOfSpryker\Zed\SizeSwitcher\Persistence\SizeSwitcherRepositoryInterface getRepository()
  */
-class SizeSwitcherCommunicationFactory extends AbstractCommunicationFactory
+class SizeSwitcherBusinessFactory extends AbstractBusinessFactory
 {
     /**
      * @return \FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToEventBehaviorFacadeInterface
