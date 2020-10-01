@@ -4,6 +4,7 @@ namespace FondOfSpryker\Zed\SizeSwitcher\Persistence;
 
 use FondOfSpryker\Zed\SizeSwitcher\SizeSwitcherDependencyProvider;
 use Orm\Zed\Availability\Persistence\SpyAvailabilityAbstractQuery;
+use Orm\Zed\Availability\Persistence\SpyAvailabilityQuery;
 use Orm\Zed\Product\Persistence\SpyProductAbstractQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -13,6 +14,14 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
  */
 class SizeSwitcherPersistenceFactory extends AbstractPersistenceFactory
 {
+    /**
+     * @return \Orm\Zed\Availability\Persistence\SpyAvailabilityQuery
+     */
+    public function getAvailabilityQuery(): SpyAvailabilityQuery
+    {
+        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::AVAILABILITY_QUERY);
+    }
+
     /**
      * @return \Orm\Zed\Availability\Persistence\SpyAvailabilityAbstractQuery
      */

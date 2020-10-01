@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\SizeSwitcher\Persistence;
 
 use Orm\Zed\Availability\Persistence\Map\SpyAvailabilityAbstractTableMap;
+use Orm\Zed\Availability\Persistence\Map\SpyAvailabilityTableMap;
 use Orm\Zed\Product\Persistence\Map\SpyProductAbstractTableMap;
 use Propel\Runtime\Collection\ArrayCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -17,13 +18,14 @@ class SizeSwitcherRepository extends AbstractRepository implements SizeSwitcherR
      *
      * @return int[]
      */
-    public function queryProductAbstractSkusByAvailabilityIds(array $availabiltyIds): array
+    public function queryProductAbstractSkusByAvailabilityAbstractIds(array $availabiltyIds, int $storeId): array
     {
         $result = $this->getFactory()
             ->getAvailabilityAbstractQuery()
             ->clear()
             ->select(SpyAvailabilityAbstractTableMap::COL_ABSTRACT_SKU)
             ->filterByIdAvailabilityAbstract_In($availabiltyIds)
+            ->filterByFkStore($storeId)
             ->find();
 
         if (!$result instanceof ArrayCollection) {
@@ -37,7 +39,6 @@ class SizeSwitcherRepository extends AbstractRepository implements SizeSwitcherR
      * @param string[] $productAbstractSkus
      *
      * @return int[]
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function queryProductAbstractIdsBySku(array $productAbstractSkus): array
     {
@@ -46,6 +47,29 @@ class SizeSwitcherRepository extends AbstractRepository implements SizeSwitcherR
             ->clear()
             ->select(SpyProductAbstractTableMap::COL_ID_PRODUCT_ABSTRACT)
             ->filterBySku_In($productAbstractSkus)
+            ->find();
+
+        if (!$result instanceof ArrayCollection) {
+            return [];
+        }
+
+        return $result->getData();
+    }
+
+    /**
+     * @param int[] $availabiltyIds
+     * @param int $storeId
+     *
+     * @return int[]
+     */
+    public function queryAbvailabiltyAbstractIdsByAvailabilityIds(array $availabiltyIds, int $storeId): array
+    {
+        $result = $this->getFactory()
+            ->getAvailabilityQuery()
+            ->clear()
+            ->select(SpyAvailabilityTableMap::COL_ID_AVAILABILITY)
+            ->filterByIdAvailability_In($availabiltyIds)
+            ->filterByFkStore($storeId)
             ->find();
 
         if (!$result instanceof ArrayCollection) {

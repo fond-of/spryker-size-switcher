@@ -25,8 +25,25 @@ class SizeSwitcherFacade extends AbstractFacade implements SizeSwitcherFacadeInt
             return;
         }
 
+        $storeTransfer = $this->getFactory()
+            ->getStoreFacade()
+            ->getCurrentStore();
+
+        $availabiltyAbstractIds = $this->getRepository()
+            ->queryAbvailabiltyAbstractIdsByAvailabilityIds(
+                $availabiltyIds,
+                $storeTransfer->getIdStore()
+            );
+
+        if (empty($availabiltyAbstractIds)) {
+            return;
+        }
+
         $productAbstractSkus = $this->getRepository()
-            ->queryProductAbstractSkusByAvailabilityIds($availabiltyIds);
+            ->queryProductAbstractSkusByAvailabilityAbstractIds(
+                $availabiltyAbstractIds,
+                $storeTransfer->getIdStore()
+            );
 
         if (empty($productAbstractSkus)) {
             return;
