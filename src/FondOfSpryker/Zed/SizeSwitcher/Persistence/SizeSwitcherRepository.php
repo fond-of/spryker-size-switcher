@@ -16,7 +16,7 @@ class SizeSwitcherRepository extends AbstractRepository implements SizeSwitcherR
     /**
      * @param int[] $availabiltyIds
      *
-     * @return int[]
+     * @return string[]
      */
     public function queryProductAbstractSkusByAvailabilityAbstractIds(array $availabiltyIds, int $storeId): array
     {

@@ -28,7 +28,11 @@ class SizeSwitcherDependencyProvider extends AbstractBundleDependencyProvider
     public function provideBusinessLayerDependencies(Container $container)
     {
         $container = $this->addFacadeEventBehavior($container);
+        $container = $this->addStoreFacade($container);
         $container = $this->addFacadeProductPageSearch($container);
+        $container = $this->addAvailabilityAbstractQuery($container);
+        $container = $this->addProductAbstractQuery($container);
+        $container = $this->addAvailabilityQuery($container);
 
         return $container;
     }
@@ -55,7 +59,7 @@ class SizeSwitcherDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addAvailabilityQuery(Container $container): Container
     {
-        $container[static::AVAILABILITY_ABSTRACT_QUERY] = function (Container $container) {
+        $container[static::AVAILABILITY_QUERY] = function (Container $container) {
             return SpyAvailabilityQuery::create();
         };
 

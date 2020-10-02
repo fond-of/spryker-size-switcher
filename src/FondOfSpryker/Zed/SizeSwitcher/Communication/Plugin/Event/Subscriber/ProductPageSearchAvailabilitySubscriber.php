@@ -9,8 +9,6 @@ use Spryker\Zed\Event\Dependency\Plugin\EventSubscriberInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method \FondOfSpryker\Zed\SizeSwitcher\Persistence\SizeSwitcherQueryContainerInterface getQueryContainer()
- * @method \FondOfSpryker\Zed\SizeSwitcher\Communication\SizeSwitcherCommunicationFactory getFactory()
  * @method \FondOfSpryker\Zed\SizeSwitcher\Business\SizeSwitcherFacadeInterface getFacade()
  */
 class ProductPageSearchAvailabilitySubscriber extends AbstractPlugin implements EventSubscriberInterface

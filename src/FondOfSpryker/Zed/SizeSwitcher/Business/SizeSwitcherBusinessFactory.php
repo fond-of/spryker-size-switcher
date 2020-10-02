@@ -2,6 +2,8 @@
 
 namespace FondOfSpryker\Zed\SizeSwitcher\Business;
 
+use FondOfSpryker\Zed\SizeSwitcher\Business\Publisher\ProductAbstractPageSearchPublisher;
+use FondOfSpryker\Zed\SizeSwitcher\Business\Publisher\ProductAbstractPageSearchPublisherInterface;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToEventBehaviorFacadeInterface;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToProductPageSearchFacadeInterface;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToStoreFacadeInterface;
@@ -35,5 +37,18 @@ class SizeSwitcherBusinessFactory extends AbstractBusinessFactory
     public function getStoreFacade(): SizeSwitcherToStoreFacadeInterface
     {
         return $this->getProvidedDependency(SizeSwitcherDependencyProvider::FACADE_STORE);
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\SizeSwitcher\Business\Publisher\ProductAbstractPageSearchPublisher
+     */
+    public function createProductAbstractPageSearchPublisher(): ProductAbstractPageSearchPublisherInterface
+    {
+        return new ProductAbstractPageSearchPublisher(
+            $this->getStoreFacade(),
+            $this->getEventBehaviorFacade(),
+            $this->getProductPageSearchFacade(),
+            $this->getRepository()
+        );
     }
 }
