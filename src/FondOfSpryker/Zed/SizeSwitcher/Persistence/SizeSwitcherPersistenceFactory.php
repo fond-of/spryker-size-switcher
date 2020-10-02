@@ -19,7 +19,7 @@ class SizeSwitcherPersistenceFactory extends AbstractPersistenceFactory
      */
     public function getAvailabilityQuery(): SpyAvailabilityQuery
     {
-        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::AVAILABILITY_QUERY);
+        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::QUERY_AVAILABILITY);
     }
 
     /**
@@ -27,7 +27,7 @@ class SizeSwitcherPersistenceFactory extends AbstractPersistenceFactory
      */
     public function getAvailabilityAbstractQuery(): SpyAvailabilityAbstractQuery
     {
-        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::AVAILABILITY_ABSTRACT_QUERY);
+        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::QUERY_AVAILABILITY_ABSTRACT);
     }
 
     /**
@@ -35,6 +35,6 @@ class SizeSwitcherPersistenceFactory extends AbstractPersistenceFactory
      */
     public function getProductAbstractQuery(): SpyProductAbstractQuery
     {
-        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::PRODUCT_ABSTRACT_QUERY);
+        return $this->getProvidedDependency(SizeSwitcherDependencyProvider::QUERY_PRODUCT_ABSTRACT);
     }
 }

@@ -15,7 +15,7 @@ interface SizeSwitcherRepositoryInterface
      * @param int[] $availabiltyIds
      * @param int $storeId
      *
-     * @return int[]
+     * @return string[]
      */
     public function queryProductAbstractSkuByAvailabilityIds(array $availabiltyIds, int $storeId): array;
 }

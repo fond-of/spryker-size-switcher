@@ -54,21 +54,22 @@ class ProductAbstractPageSearchPublisher implements ProductAbstractPageSearchPub
      */
     public function publish(array $eventTransfer): void
     {
-        $availabiltyIds = $this->getAvailabilityIdsFromEventTransfer($eventTransfer);
+        $availabiltyIds = $this->eventBehaviorFacade
+            ->getEventTransferIds($eventTransfer);
 
-        if ($availabiltyIds === null) {
+        if (count($availabiltyIds) === 0) {
             return;
         }
 
         $productAbstractSkus = $this->queryProductAbstractSkuByAvailabilityIds($availabiltyIds);
 
-        if ($productAbstractSkus === null) {
+        if (count($productAbstractSkus) === 0) {
             return;
         }
 
         $productAbstractIds = $this->queryProductAbstractIdsBySku($productAbstractSkus);
 
-        if ($productAbstractIds === null) {
+        if (count($productAbstractIds) === null) {
             return;
         }
 
@@ -76,40 +77,27 @@ class ProductAbstractPageSearchPublisher implements ProductAbstractPageSearchPub
     }
 
     /**
-     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $eventTransfer
-     *
-     * @return array|null
-     */
-    protected function getAvailabilityIdsFromEventTransfer(array $eventTransfer): ?array
-    {
-        $availabiltyIds = $this->eventBehaviorFacade
-            ->getEventTransferIds($eventTransfer);
-
-        return !empty($availabiltyIds) ? $availabiltyIds : null;
-    }
-
-    /**
      * @param int[] $availabiltyIds
      *
-     * @return string[]|null
+     * @return string[]
      */
-    protected function queryProductAbstractSkuByAvailabilityIds(array $availabiltyIds): ?array
+    protected function queryProductAbstractSkuByAvailabilityIds(array $availabiltyIds): array
     {
         $productAbstractSkus = $this->sizeSwitcherRepository->
             queryProductAbstractSkuByAvailabilityIds($availabiltyIds, $this->storeFacade->getCurrentStore()->getIdStore());
 
-        return !empty($productAbstractSkus) ? $productAbstractSkus : null;
+        return $productAbstractSkus;
     }
 
     /**
      * @param int[] $productAbstractSkus
      *
-     * @return int[]|null
+     * @return int[]
      */
-    protected function queryProductAbstractIdsBySku(array $productAbstractSkus): ?array
+    protected function queryProductAbstractIdsBySku(array $productAbstractSkus): array
     {
         $productAbstractIds = $this->sizeSwitcherRepository->queryProductAbstractIdsBySku($productAbstractSkus);
 
-        return !empty($productAbstractIds) ? $productAbstractIds : null;
+        return $productAbstractIds;
     }
 }
