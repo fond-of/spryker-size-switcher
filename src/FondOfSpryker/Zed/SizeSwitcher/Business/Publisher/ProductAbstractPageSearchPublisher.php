@@ -60,13 +60,7 @@ class ProductAbstractPageSearchPublisher implements ProductAbstractPageSearchPub
             return;
         }
 
-        $availabiltyAbstractIds = $this->queryAbvailabiltyAbstractIdsByAvailabilityIds($availabiltyIds);
-
-        if ($availabiltyAbstractIds === null) {
-            return;
-        }
-
-        $productAbstractSkus = $this->queryProductAbstractSkusByAvailabilityAbstractIds($availabiltyAbstractIds);
+        $productAbstractSkus = $this->queryProductAbstractSkuByAvailabilityIds($availabiltyIds);
 
         if ($productAbstractSkus === null) {
             return;
@@ -95,31 +89,14 @@ class ProductAbstractPageSearchPublisher implements ProductAbstractPageSearchPub
     }
 
     /**
-     * @param int[] $availabilityIds
-     *
-     * @return int[]|null
-     */
-    protected function queryAbvailabiltyAbstractIdsByAvailabilityIds(array $availabilityIds): ?array
-    {
-        $availabiltyAbstractIds = $this->sizeSwitcherRepository->queryAbvailabiltyAbstractIdsByAvailabilityIds(
-            $availabilityIds,
-            $this->storeFacade->getCurrentStore()->getIdStore()
-        );
-
-        return !empty($availabiltyAbstractIds) ? $availabiltyAbstractIds : null;
-    }
-
-    /**
-     * @param string[] $availabiltyAbstractIds
+     * @param int[] $availabiltyIds
      *
      * @return string[]|null
      */
-    protected function queryProductAbstractSkusByAvailabilityAbstractIds(array $availabiltyAbstractIds): ?array
+    protected function queryProductAbstractSkuByAvailabilityIds(array $availabiltyIds): ?array
     {
-        $productAbstractSkus = $this->sizeSwitcherRepository->queryProductAbstractSkusByAvailabilityAbstractIds(
-            $availabiltyAbstractIds,
-            $this->storeFacade->getCurrentStore()->getIdStore()
-        );
+        $productAbstractSkus = $this->sizeSwitcherRepository->
+            queryProductAbstractSkuByAvailabilityIds($availabiltyIds, $this->storeFacade->getCurrentStore()->getIdStore());
 
         return !empty($productAbstractSkus) ? $productAbstractSkus : null;
     }

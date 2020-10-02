@@ -3,7 +3,6 @@
 namespace FondOfSpryker\Zed\SizeSwitcher\Persistence;
 
 use Orm\Zed\Availability\Persistence\Map\SpyAvailabilityAbstractTableMap;
-use Orm\Zed\Availability\Persistence\Map\SpyAvailabilityTableMap;
 use Orm\Zed\Product\Persistence\Map\SpyProductAbstractTableMap;
 use Propel\Runtime\Collection\ArrayCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -13,28 +12,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class SizeSwitcherRepository extends AbstractRepository implements SizeSwitcherRepositoryInterface
 {
-    /**
-     * @param int[] $availabiltyIds
-     *
-     * @return string[]
-     */
-    public function queryProductAbstractSkusByAvailabilityAbstractIds(array $availabiltyIds, int $storeId): array
-    {
-        $result = $this->getFactory()
-            ->getAvailabilityAbstractQuery()
-            ->clear()
-            ->select(SpyAvailabilityAbstractTableMap::COL_ABSTRACT_SKU)
-            ->filterByIdAvailabilityAbstract_In($availabiltyIds)
-            ->filterByFkStore($storeId)
-            ->find();
-
-        if (!$result instanceof ArrayCollection) {
-            return [];
-        }
-
-        return $result->getData();
-    }
-
     /**
      * @param string[] $productAbstractSkus
      *
@@ -62,12 +39,12 @@ class SizeSwitcherRepository extends AbstractRepository implements SizeSwitcherR
      *
      * @return int[]
      */
-    public function queryAbvailabiltyAbstractIdsByAvailabilityIds(array $availabiltyIds, int $storeId): array
+    public function queryProductAbstractSkuByAvailabilityIds(array $availabiltyIds, int $storeId): array
     {
         $result = $this->getFactory()
             ->getAvailabilityQuery()
-            ->clear()
-            ->select(SpyAvailabilityTableMap::COL_ID_AVAILABILITY)
+            ->select(SpyAvailabilityAbstractTableMap::COL_ABSTRACT_SKU)
+            ->leftJoinWithSpyAvailabilityAbstract()
             ->filterByIdAvailability_In($availabiltyIds)
             ->filterByFkStore($storeId)
             ->find();
