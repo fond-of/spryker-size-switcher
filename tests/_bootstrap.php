@@ -20,11 +20,7 @@ if (!defined('APPLICATION_ENV')) {
 }
 
 if (!defined('APPLICATION_STORE')) {
-    define('APPLICATION_STORE', 'AFFENZAHN_COM ');
-}
-
-if (!defined('APPLICATION_CODE_BUCKET')) {
-    define('APPLICATION_CODE_BUCKET', 'SHOP');
+    define('APPLICATION_STORE', 'UNIT');
 }
 
 if (!defined('APPLICATION_ROOT_DIR')) {

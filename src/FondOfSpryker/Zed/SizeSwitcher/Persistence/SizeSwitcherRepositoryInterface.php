@@ -5,16 +5,17 @@ namespace FondOfSpryker\Zed\SizeSwitcher\Persistence;
 interface SizeSwitcherRepositoryInterface
 {
     /**
-     * @param int[] $availabiltyIds
-     *
-     * @return int[]
-     */
-    public function queryProductAbstractSkusByAvailabilityIds(array $availabiltyIds): array;
-
-    /**
      * @param string[] $productAbstractSkus
      *
      * @return int[]
      */
     public function queryProductAbstractIdsBySku(array $productAbstractSkus): array;
+
+    /**
+     * @param int[] $availabiltyIds
+     * @param int $storeId
+     *
+     * @return string[]
+     */
+    public function queryProductAbstractSkuByAvailabilityIds(array $availabiltyIds, int $storeId): array;
 }

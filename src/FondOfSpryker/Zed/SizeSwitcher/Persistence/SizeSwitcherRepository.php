@@ -13,17 +13,17 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class SizeSwitcherRepository extends AbstractRepository implements SizeSwitcherRepositoryInterface
 {
     /**
-     * @param int[] $availabiltyIds
+     * @param string[] $productAbstractSkus
      *
      * @return int[]
      */
-    public function queryProductAbstractSkusByAvailabilityIds(array $availabiltyIds): array
+    public function queryProductAbstractIdsBySku(array $productAbstractSkus): array
     {
         $result = $this->getFactory()
-            ->getAvailabilityAbstractQuery()
+            ->getProductAbstractQuery()
             ->clear()
-            ->select(SpyAvailabilityAbstractTableMap::COL_ABSTRACT_SKU)
-            ->filterByIdAvailabilityAbstract_In($availabiltyIds)
+            ->select(SpyProductAbstractTableMap::COL_ID_PRODUCT_ABSTRACT)
+            ->filterBySku_In($productAbstractSkus)
             ->find();
 
         if (!$result instanceof ArrayCollection) {
@@ -34,18 +34,19 @@ class SizeSwitcherRepository extends AbstractRepository implements SizeSwitcherR
     }
 
     /**
-     * @param string[] $productAbstractSkus
+     * @param int[] $availabiltyIds
+     * @param int $storeId
      *
-     * @return int[]
-     * @throws \Propel\Runtime\Exception\PropelException
+     * @return string[]
      */
-    public function queryProductAbstractIdsBySku(array $productAbstractSkus): array
+    public function queryProductAbstractSkuByAvailabilityIds(array $availabiltyIds, int $storeId): array
     {
         $result = $this->getFactory()
-            ->getProductAbstractQuery()
-            ->clear()
-            ->select(SpyProductAbstractTableMap::COL_ID_PRODUCT_ABSTRACT)
-            ->filterBySku_In($productAbstractSkus)
+            ->getAvailabilityQuery()
+            ->select(SpyAvailabilityAbstractTableMap::COL_ABSTRACT_SKU)
+            ->leftJoinWithSpyAvailabilityAbstract()
+            ->filterByIdAvailability_In($availabiltyIds)
+            ->filterByFkStore($storeId)
             ->find();
 
         if (!$result instanceof ArrayCollection) {

@@ -5,7 +5,7 @@ namespace FondOfSpryker\Zed\SizeSwitcher\Business;
 interface SizeSwitcherFacadeInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $eventTransfers
+     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $eventTransfer
      *
      * @return void
      */
