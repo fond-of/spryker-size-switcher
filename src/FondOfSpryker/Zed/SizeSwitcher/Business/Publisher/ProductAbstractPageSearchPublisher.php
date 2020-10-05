@@ -61,43 +61,23 @@ class ProductAbstractPageSearchPublisher implements ProductAbstractPageSearchPub
             return;
         }
 
-        $productAbstractSkus = $this->queryProductAbstractSkuByAvailabilityIds($availabiltyIds);
+        $productAbstractSkus = $this->sizeSwitcherRepository
+            ->queryProductAbstractSkuByAvailabilityIds(
+                $availabiltyIds,
+                $this->storeFacade->getCurrentStore()->getIdStore()
+            );
 
         if (count($productAbstractSkus) === 0) {
             return;
         }
 
-        $productAbstractIds = $this->queryProductAbstractIdsBySku($productAbstractSkus);
+        $productAbstractIds = $this->sizeSwitcherRepository
+            ->queryProductAbstractIdsBySku($productAbstractSkus);
 
         if (count($productAbstractIds) === null) {
             return;
         }
 
         $this->productPageSearchFacade->publish($productAbstractIds);
-    }
-
-    /**
-     * @param int[] $availabiltyIds
-     *
-     * @return string[]
-     */
-    protected function queryProductAbstractSkuByAvailabilityIds(array $availabiltyIds): array
-    {
-        $productAbstractSkus = $this->sizeSwitcherRepository->
-            queryProductAbstractSkuByAvailabilityIds($availabiltyIds, $this->storeFacade->getCurrentStore()->getIdStore());
-
-        return $productAbstractSkus;
-    }
-
-    /**
-     * @param int[] $productAbstractSkus
-     *
-     * @return int[]
-     */
-    protected function queryProductAbstractIdsBySku(array $productAbstractSkus): array
-    {
-        $productAbstractIds = $this->sizeSwitcherRepository->queryProductAbstractIdsBySku($productAbstractSkus);
-
-        return $productAbstractIds;
     }
 }

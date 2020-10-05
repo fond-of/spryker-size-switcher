@@ -7,6 +7,7 @@ use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToEventBehavior
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToProductPageSearchFacadeBridge;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToStoreFacadeBridge;
 use FondOfSpryker\Zed\SizeSwitcher\Persistence\SizeSwitcherRepository;
+use Generated\Shared\Transfer\StoreTransfer;
 
 class ProductAbstractPageSearchPublisherTest extends Unit
 {
@@ -61,7 +62,7 @@ class ProductAbstractPageSearchPublisherTest extends Unit
 
         $this->repositoryMock = $this->getMockBuilder(SizeSwitcherRepository::class)
             ->disableOriginalConstructor()
-            ->setMethods()
+            ->setMethods(['queryProductAbstractSkuByAvailabilityIds', 'queryProductAbstractIdsBySku'])
             ->getMock();
 
         $eventEntityTransfer = include codecept_data_dir('EventEntityTransfer.php');
@@ -82,8 +83,29 @@ class ProductAbstractPageSearchPublisherTest extends Unit
      */
     public function testPublish(): void
     {
+        $eventEntityTransfer = include codecept_data_dir('EventEntityTransfer.php');
+        $this->eventTransferCollection = [
+            $eventEntityTransfer,
+        ];
+
         $this->eventFacadeMock->expects($this->once())
-            ->method('getEventTransferIds');
+            ->method('getEventTransferIds')
+            ->with($this->eventTransferCollection)
+            ->willReturn([1612]);
+
+        $this->storeFacadeMock->expects($this->once())
+            ->method('getCurrentStore')
+            ->willReturn((new StoreTransfer())->setIdStore(1));
+
+        $this->repositoryMock->expects($this->once())
+            ->method('queryProductAbstractSkuByAvailabilityIds')
+            ->with([1612], 1)
+            ->willReturn([1612]);
+
+        $this->repositoryMock->expects($this->once())
+            ->method('queryProductAbstractIdsBySku')
+            ->with([1612])
+            ->willReturn(['SKU_TEST']);
 
         $this->publisher->publish($this->eventTransferCollection);
     }

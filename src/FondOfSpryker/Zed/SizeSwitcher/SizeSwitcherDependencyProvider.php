@@ -122,6 +122,11 @@ class SizeSwitcherDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     protected function addStoreFacade(Container $container): Container
     {
         $container[static::FACADE_STORE] = static function (Container $container) {

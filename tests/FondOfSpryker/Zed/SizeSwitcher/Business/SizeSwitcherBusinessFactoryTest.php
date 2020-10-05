@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\SizeSwitcher\Business;
 
 use Codeception\Test\Unit;
+use FondOfSpryker\Zed\SizeSwitcher\Business\Publisher\ProductAbstractPageSearchPublisherInterface;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToEventBehaviorFacadeBridge;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToEventBehaviorFacadeInterface;
 use FondOfSpryker\Zed\SizeSwitcher\Dependency\Facade\SizeSwitcherToProductPageSearchFacadeBridge;
@@ -81,7 +82,6 @@ class SizeSwitcherBusinessFactoryTest extends Unit
         $this->factory = new SizeSwitcherBusinessFactory();
         $this->factory->setRepository($this->repository);
     }
-
 
     /**
      * @return void
