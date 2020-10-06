@@ -9,5 +9,5 @@ interface SizeSwitcherFacadeInterface
      *
      * @return void
      */
-    public function update(array $eventTransfer);
+    public function update(array $eventTransfer): void;
 }
