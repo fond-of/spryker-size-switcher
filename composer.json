@@ -21,10 +21,9 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
-    "spryker/kernel": "^3.42.4",
-    "spryker/availability": "^9.0.0",
-    "spryker/product-page-search": "^3.7.0"
+    "php": ">=7.3",
+    "spryker/availability": "^9.0.0 || ^9.15.0",
+    "spryker/product-page-search": "^3.7.0 || ^3.28.1"
   },
   "require-dev": {
     "spryker/code-sniffer": "^0.14.7",
